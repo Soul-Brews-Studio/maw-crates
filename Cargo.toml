@@ -1,0 +1,32 @@
+[workspace]
+members = [
+    "crates/maw-auto-wake",
+    "crates/maw-bind",
+    "crates/maw-bring",
+    "crates/maw-feed",
+    "crates/maw-fuzzy",
+    "crates/maw-hub",
+    "crates/maw-identity",
+    "crates/maw-plugin-scaffold",
+    "crates/maw-policy",
+    "crates/maw-routing",
+    "crates/maw-split",
+]
+resolver = "2"
+
+[workspace.package]
+edition = "2021"
+license = "BUSL-1.1"
+repository = "https://github.com/Soul-Brews-Studio/maw-crates"
+
+[workspace.lints.rust]
+unsafe_code = "forbid"
+
+[workspace.lints.clippy]
+pedantic = { level = "warn", priority = -1 }
+
+[profile.dev]
+debug = "line-tables-only"
+
+[profile.test]
+debug = "line-tables-only"
