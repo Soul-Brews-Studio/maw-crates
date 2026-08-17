@@ -42,9 +42,17 @@ nondefault `fixtures` feature, keeping them out of normal production builds.
 ## Gate
 
 ```bash
-cargo test --workspace
-cargo clippy --workspace --all-targets -- -D warnings
+cargo fmt --all -- --check
+cargo test --workspace --locked --no-fail-fast
+cargo test --workspace --all-features --locked --no-fail-fast
+cargo clippy --workspace --all-targets --locked -- -D warnings
+cargo clippy --workspace --all-targets --all-features --locked -- -D warnings
 ```
+
+CI runs these commands with the pinned Rust toolchain from
+`rust-toolchain.toml`. Default and all-feature dimensions are separate so the
+nondefault fixture-export APIs stay compiled and linted without entering normal
+production builds.
 
 `scripts/gen-routing-corpus.ts` regenerates the maw-routing differential
 fixture corpus from a maw-js checkout

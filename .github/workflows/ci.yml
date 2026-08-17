@@ -1,0 +1,40 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  rust:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+
+      - name: Install pinned Rust toolchain
+        run: rustup toolchain install
+
+      - name: Format
+        run: cargo fmt --all -- --check
+
+      - name: Test default features
+        run: cargo test --workspace --locked --no-fail-fast
+
+      - name: Test all features
+        run: cargo test --workspace --all-features --locked --no-fail-fast
+
+      - name: Clippy default features
+        run: cargo clippy --workspace --all-targets --locked -- -D warnings
+
+      - name: Clippy all features
+        run: cargo clippy --workspace --all-targets --all-features --locked -- -D warnings
