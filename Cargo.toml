@@ -14,6 +14,7 @@ members = [
     "crates/maw-routing",
     "crates/maw-schedule",
     "crates/maw-split",
+    "crates/maw-xdg",
 ]
 resolver = "2"
 
