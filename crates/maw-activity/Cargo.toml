@@ -6,6 +6,10 @@ license.workspace = true
 repository.workspace = true
 publish = false
 
+[features]
+default = []
+fixtures = []
+
 [dev-dependencies]
 serde_json = "1"
 

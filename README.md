@@ -13,7 +13,8 @@ All crates here are self-contained leaves: deterministic, side-effect-free,
 crates. Behavior is locked against maw-js JSON test fixtures (in each crate's
 `tests/fixtures/`). Several crates re-export their fixture corpora as
 `pub const *_FIXTURES_JSON` so downstream parity tests don't need filesystem
-paths into this repo.
+paths into this repo. `maw-activity` exposes its corpus only through the
+nondefault `fixtures` feature, keeping it out of normal production builds.
 
 ## Crates
 

@@ -258,5 +258,6 @@ fn round_seconds(value: f64) -> f64 {
     (value * 1_000.0).round() / 1_000.0
 }
 
+#[cfg(feature = "fixtures")]
 pub const ACTIVITY_CLASSIFICATION_FIXTURES_JSON: &str =
     include_str!("../tests/fixtures/activity-classification.fixtures.json");
