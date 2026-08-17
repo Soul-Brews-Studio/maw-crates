@@ -114,6 +114,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "maw-matcher"
+version = "0.1.0-alpha.1"
+dependencies = [
+ "serde",
+ "serde_json",
+]
+
+[[package]]
 name = "maw-plugin-scaffold"
 version = "0.1.0-alpha.1"
 dependencies = [
