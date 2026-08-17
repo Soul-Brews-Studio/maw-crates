@@ -19,6 +19,7 @@ paths into this repo.
 
 | Crate | Purpose |
 |---|---|
+| `maw-activity` | Pure terminal-snapshot activity classification |
 | `maw-auto-wake` | Auto-wake scheduling helpers |
 | `maw-bind` | Key/target binding logic |
 | `maw-bring` | Bring-pane planning |

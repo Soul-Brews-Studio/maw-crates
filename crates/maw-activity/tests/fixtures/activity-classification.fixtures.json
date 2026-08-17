@@ -1,0 +1,35 @@
+{
+  "normalize": [
+    {"name":"csi-crlf","input":"\u001b[31mhello\u001b[0m\r\n","expected":"hello"},
+    {"name":"osc-bel-and-st","input":"pre\u001b]0;title\u0007mid\u001b]8;;url\u001b\\link\u001b]8;;\u001b\\","expected":"premid"},
+    {"name":"dcs-apc-pm","input":"a\u001bPpayload\u001b\\b\u001b^private\u001b\\c\u001b_hidden\u001b\\d","expected":"abcd"},
+    {"name":"ordered-nested-controls","input":"a\u001bPpayload\u001b]title\u001b\\b","expected":"a\u001bPpayloadb"},
+    {"name":"unterminated-osc","input":"a\u001b]title","expected":"a\u001b]title"},
+    {"name":"unterminated-dcs","input":"a\u001bPpayload","expected":"a\u001bPpayload"},
+    {"name":"unterminated-csi","input":"a\u001b[31","expected":"a\u001b[31"},
+    {"name":"unterminated-charset","input":"a\u001b(","expected":"a\u001b("},
+    {"name":"character-sets","input":"\u001b(Bascii \u001b)0line","expected":"ascii line"},
+    {"name":"ecmascript-whitespace","input":"\ufeff hello \ufeff","expected":"hello"},
+    {"name":"nel-is-not-ecmascript-whitespace","input":"\u0085hello\u0085","expected":"\u0085hello\u0085"}
+  ],
+  "stuck": [
+    {"name":"prompt-cursors","input":"noise\n❯ █","expected":true},
+    {"name":"ascii-prompt","input":"$ _","expected":true},
+    {"name":"codex-phrase","input":"Ask Codex?","expected":true},
+    {"name":"claude-phrase","input":"ready — ask claude","expected":true},
+    {"name":"space-before-question","input":"Ask Codex ?","expected":false},
+    {"name":"rust-only-claude-code-suffix","input":"Claude Code v1 >","expected":false},
+    {"name":"bom-prompt-space","input":">\ufeff","expected":true},
+    {"name":"nel-is-not-prompt-space","input":">\u0085","expected":false},
+    {"name":"ordinary-output","input":"building > artifact","expected":false}
+  ],
+  "classify": [
+    {"name":"busy-three","pane":"pane","window_ms":30000,"samples":[["one",1000],["two",2000],["three",3000]],"expected":{"state":"busy","confidence":"high","samples":3,"diff_samples":3,"last_change_ago_seconds":0.0,"sample_window_seconds":30.0}},
+    {"name":"busy-adjacent","pane":"pane","window_ms":30000,"samples":[["one",1000],["two",2000],["two",3000]],"expected":{"state":"busy","confidence":"high","samples":3,"diff_samples":2,"last_change_ago_seconds":1.0,"sample_window_seconds":30.0}},
+    {"name":"idle","pane":"pane","window_ms":30000,"samples":[["same",1000],["same",16000],["same",31000]],"expected":{"state":"idle","confidence":"high","samples":3,"diff_samples":0,"last_change_ago_seconds":30.0,"sample_window_seconds":30.0}},
+    {"name":"stuck-low","pane":"pane","window_ms":2000,"samples":[["❯ ▌",1000]],"expected":{"state":"stuck","confidence":"low","samples":1,"diff_samples":0,"last_change_ago_seconds":2.0,"sample_window_seconds":2.0}},
+    {"name":"stuck-medium","pane":"pane","window_ms":2000,"samples":[["Ask Claude",1000],["Ask Claude",2000]],"expected":{"state":"stuck","confidence":"medium","samples":2,"diff_samples":0,"last_change_ago_seconds":2.0,"sample_window_seconds":2.0}},
+    {"name":"reversed-time-saturates","pane":"pane","window_ms":2500,"samples":[["one",3000],["two",2000]],"expected":{"state":"busy","confidence":"medium","samples":2,"diff_samples":2,"last_change_ago_seconds":0.0,"sample_window_seconds":2.5}},
+    {"name":"empty","pane":"pane","window_ms":1234,"samples":[],"expected":{"state":"idle","confidence":"low","samples":0,"diff_samples":0,"last_change_ago_seconds":1.234,"sample_window_seconds":1.234}}
+  ]
+}
