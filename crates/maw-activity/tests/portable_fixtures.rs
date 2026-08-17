@@ -1,10 +1,19 @@
 #![allow(clippy::float_cmp)]
 
-use maw_activity::{
-    classify_snapshots, is_stuck_snapshot, normalize_snapshot, ActivitySample,
-    ACTIVITY_CLASSIFICATION_FIXTURES_JSON,
-};
+use maw_activity::{classify_snapshots, is_stuck_snapshot, normalize_snapshot, ActivitySample};
 use serde_json::Value;
+
+const ACTIVITY_CLASSIFICATION_FIXTURES_JSON: &str =
+    include_str!("fixtures/activity-classification.fixtures.json");
+
+#[cfg(feature = "fixtures")]
+#[test]
+fn fixtures_feature_exports_the_same_corpus() {
+    assert_eq!(
+        maw_activity::ACTIVITY_CLASSIFICATION_FIXTURES_JSON,
+        ACTIVITY_CLASSIFICATION_FIXTURES_JSON
+    );
+}
 
 #[test]
 fn activity_fixtures_match_maw_js() {
