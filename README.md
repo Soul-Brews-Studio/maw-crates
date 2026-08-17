@@ -8,14 +8,16 @@ pinned to a `rev`:
 maw-fuzzy = { git = "https://github.com/Soul-Brews-Studio/maw-crates", rev = "<sha>" }
 ```
 
-All crates here are self-contained leaves: deterministic, side-effect-free,
-`forbid(unsafe_code)`, clippy-pedantic clean, no dependencies on other maw
-crates. Behavior is locked against maw-js JSON test fixtures (in each crate's
-`tests/fixtures/`). Several crates re-export their fixture corpora as
-`pub const *_FIXTURES_JSON` so downstream parity tests don't need filesystem
-paths into this repo. `maw-activity` and `maw-matcher` expose downstream
-corpora only through the nondefault `fixtures` feature, keeping them out of
-normal production builds.
+All crates here are self-contained leaves with no dependencies on other maw
+crates; all forbid unsafe code and remain clippy-pedantic clean. Most expose
+deterministic, side-effect-free core logic. Filesystem-facing leaves such as
+`maw-plugin-scaffold` and `maw-xdg` constrain I/O to their documented crate
+boundaries and test it against isolated paths. Behavior is locked by
+crate-local tests, including maw-js JSON fixture corpora where applicable.
+Several crates re-export their fixture corpora as `pub const *_FIXTURES_JSON`
+so downstream parity tests don't need filesystem paths into this repo.
+`maw-activity` and `maw-matcher` expose downstream corpora only through the
+nondefault `fixtures` feature, keeping them out of normal production builds.
 
 ## Crates
 
@@ -35,6 +37,7 @@ normal production builds.
 | `maw-routing` | Target routing resolution |
 | `maw-schedule` | Schedule configuration and launchd rendering |
 | `maw-split` | Split-pane policy |
+| `maw-xdg` | XDG/legacy path resolution and layered config loading |
 
 ## Gate
 
