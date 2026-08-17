@@ -8,6 +8,7 @@ members = [
     "crates/maw-fuzzy",
     "crates/maw-hub",
     "crates/maw-identity",
+    "crates/maw-matcher",
     "crates/maw-plugin-scaffold",
     "crates/maw-policy",
     "crates/maw-routing",
