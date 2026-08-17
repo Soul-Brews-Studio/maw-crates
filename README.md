@@ -30,6 +30,7 @@ paths into this repo.
 | `maw-plugin-scaffold` | Plugin scaffolding templates |
 | `maw-policy` | Plugin tier / default-active policy |
 | `maw-routing` | Target routing resolution |
+| `maw-schedule` | Schedule configuration and launchd rendering |
 | `maw-split` | Split-pane policy |
 
 ## Gate

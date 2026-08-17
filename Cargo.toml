@@ -11,6 +11,7 @@ members = [
     "crates/maw-plugin-scaffold",
     "crates/maw-policy",
     "crates/maw-routing",
+    "crates/maw-schedule",
     "crates/maw-split",
 ]
 resolver = "2"
